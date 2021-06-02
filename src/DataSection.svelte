@@ -4,8 +4,7 @@
     import Multiline from './svelte-components/Multiline.svelte';
     import dataSectionConfig from './data-section-config.json';
 
-	import { data } from './stores.js';
-	import { regiondata } from './regions.js';
+	import { data, regiondata } from './data.js';
 
     let colours = ['#27A0CC', '#F66068'];
     let lineChartColours = ['#206095', '#27A0CC', '#871A5B', '#A8BD3A', '#F66068'];
@@ -18,16 +17,16 @@
     let regionName;
 
     $: {
-        regionName = $regiondata[place.code].RGN18NM;
+        regionName = regiondata[place.code].RGN18NM;
         sectionConfig = dataSectionConfig[section];
         rows = [...sectionConfig.rows];
         let regionSumAll = {"2001": 0, "2011": 0};
         rows.forEach(row => {
-            let regionCode = $regiondata[place.code].RGN18CD;
+            let regionCode = regiondata[place.code].RGN18CD;
             row.val = place.data[row.var[0]].val.c2011[row.var[1]];
             row.regionSum = {"2001": 0, "2011": 0};
-            Object.values($data).forEach(d => {
-                if ($regiondata[d.code].RGN18CD === regionCode) {
+            Object.values(data).forEach(d => {
+                if (regiondata[d.code].RGN18CD === regionCode) {
                     for (let year of ["2001", "2011"]) {
                         row.regionSum[year] += d.data[row.var[0]].val["c"+year][row.var[1]];
                         if (!row.excludeFromTotal) {

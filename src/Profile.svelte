@@ -2,10 +2,9 @@
 	import { getHeadline, paragraphify } from './robo_utils.js';
 	import { adjectify, plusminus, ordinal_suffix_of } from './robo_utils_pure_functions.js';
 	import Select from './Select.svelte';
-	import { data, metadata } from './stores.js';
-	import { regiondata } from './regions.js';
+	import { data, regiondata, metadata } from './data.js';
 	
-	console.log($data) 
+	console.log(data) 
 	
 	var countryRank = [];
 	
@@ -32,7 +31,7 @@
 <p>
 	<strong>{getHeadline(place, total, breaks).subhead}</strong>
 </p>
-{#each paragraphify(place, 4, $data, $regiondata, countryRank, label, breaks) as paragraph}
+{#each paragraphify(place, 4, data, regiondata, countryRank, label, breaks) as paragraph}
 <p>{paragraph}</p>
 {/each}
 {:else}

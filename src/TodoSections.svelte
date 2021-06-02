@@ -15,7 +15,10 @@
 
     <DataSection section={"population"} {place}></DataSection>
     <DataSection section={"age"} {place}></DataSection>
+</section>
 
+{#if false}
+<section class="mb-12" id="population">
     <div class="mb-8">
         <table class="mb-4 border-b-2 table-auto text-base leading-loose">
             <thead class="border-grey1 border-b-2">
@@ -1222,3 +1225,4 @@
     </div>
     <a class="text-base icon-arrow p-3 pl-2 border border-nightBlue border-opacity-30  leading-none" href="#top">Back to top</a>
 </section>
+{/if}

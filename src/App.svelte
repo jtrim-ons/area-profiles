@@ -2,16 +2,16 @@
   import "../assets/app.bundle.css";
   import "./sixteens_main.css";
   import "./roboto_slab.css";
+  import { data, metadata } from './data.js';
   import Profile from './Profile.svelte';
   import ONSHeader from './ONSHeader.svelte';
   import ONSFooter from './ONSFooter.svelte';
   import Breadcrumbs from './Breadcrumbs.svelte';
   import TodoSections from './TodoSections.svelte';
-  import AreasWithinSelector from './AreasWithinSelector.svelte';
   import KeyStats from './KeyStats.svelte';
   import PrototypeWarning from './PrototypeWarning.svelte';
-  import { data, metadata } from './stores.js';
   import Select from './Select.svelte';
+  import MapWidget from './MapWidget.svelte';
 
   let place, place_name;
 
@@ -22,7 +22,7 @@
       popDensity: 0 
   };
   $: {
-      place = $data[selected];
+      place = data[selected];
       if (place) {
           console.log(place);
           keyStats = {
@@ -36,10 +36,10 @@
   };
 
   let options = [];
-  for (const i in $data) {
+  for (const i in data) {
   	let option = {};
   	option.value = i;
-  	option.label = $data[i].name;
+  	option.label = data[i].name;
   	options.push(option);
   }
   options.sort((a, b) => a.label.localeCompare(b.label, 'en', {ignorePunctuation: true}));
@@ -66,7 +66,6 @@
 
 <PrototypeWarning></PrototypeWarning>
 <ONSHeader></ONSHeader>
-<PrototypeWarning></PrototypeWarning>
 
     <div class="wrapper" id="top">
 
@@ -76,7 +75,7 @@
         <Select {options} bind:selected message='Select a place' />
         <h1 class="mb-1 p-0 text-3xl font-bold">{place_name}</h1>
         <h2 class="mt-0 text-lg">Local Authority
-             (LA code...) 
+             ({place.code}) 
         </h2>
     </header>
 
@@ -148,62 +147,14 @@
 
 <KeyStats {keyStats}></KeyStats>
 
-<section class="mb-8">
-    <header class="sr-only">
-        <h2>Map of {place_name}</h2>
-    </header>
-    <div class="relative" style="height:650px">
-        <div class="absolute bottom-0 md:top-0 left-0 w-full sm:p-4 z-50 md:sticky md:w-1/2 lg:w-1/3">
-            <div id="map-overlay" class="hidden relative border-b-1 bg-white p-4 shadow-sm md:shadow-md">
-                <button id="map-overlay-close" class="absolute top-3 right-3 icon-close rounded-full bg-white hover:bg-grey4 w-4 h-4 p-4">
-                    <span class="sr-only">Close</span>
-                </button>
-                <div class="mb-4 md:mb-8">
-                    <h2 id="map-overlay-title" class="text-lg font-bold pr-8 mb-1 md:mb-2">Area name</h2>
-                    <p id="map-overlay-subtitle" class="text-base md:text-md font-normal">Area type</p>
-                </div>
-                <div class="mb-4 md:mb-8">
-                    <ul class="list-none">
-                        
-                            <li class="p-0 m-0 mb-1 md:mb-2">
-                                <h3 class="text-sm font-normal">Resident population as of 2021</h3>
-                                <div class="text-md font-bold">162,393</div>
-                            </li>
-                        
-                            <li class="p-0 m-0 mb-1 md:mb-2">
-                                <h3 class="text-sm font-normal">Population increase since 2011</h3>
-                                <div class="text-md font-bold">2%</div>
-                            </li>
-                        
-                            <li class="p-0 m-0 mb-1 md:mb-2">
-                                <h3 class="text-sm font-normal">Total area size (Hectares)</h3>
-                                <div class="text-md font-bold">39,234.01</div>
-                            </li>
-                        
-                            <li class="p-0 m-0 mb-1 md:mb-2">
-                                <h3 class="text-sm font-normal">Population density (People per hectare)</h3>
-                                <div class="text-md font-bold">23.0</div>
-                            </li>
-                        
-                    </ul>
-                </div>
-                <a id="map-overlay-link" href="/" class="text-base">Explore this area</a>
-            </div>
-        </div>
-        <div class="absolute top-0 bg-grey4 w-full h-full" id="map" data-areaid="E12000003">
-            <img src="map-screenshot.png">
-        </div>
-    </div>
-</section>
-
-<AreasWithinSelector></AreasWithinSelector>
+<MapWidget bind:selected/>
 
 <section class="wrapper">
     <div>
 
     <TodoSections {place}></TodoSections>
 
-</div>
+    </div>
 </section>
 
 <ONSFooter></ONSFooter>            
