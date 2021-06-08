@@ -1,13 +1,17 @@
 <script>
     import { formatUnicorn } from './robo_utils_pure_functions.js';
-    import BarChart from './BarChart.svelte';
-    import Multiline from './svelte-components/Multiline.svelte';
+    import DataTable from './DataTable.svelte';
+    import Chart from './Chart.svelte';
+    import Tabs from './Tabs.svelte';
     import dataSectionConfig from './data-section-config.json';
 
 	import { data, regiondata } from './data.js';
 
     let colours = ['#27A0CC', '#F66068'];
     let lineChartColours = ['#206095', '#27A0CC', '#871A5B', '#A8BD3A', '#F66068'];
+    let chartTableOptions = ['Chart', 'Table'];
+
+    let chartOrTable;
 
     export let section;
     export let place;
@@ -72,44 +76,11 @@
     <p>
         {formatUnicorn(sectionConfig.roboString, chartData.roboData)}
     </p>
-    <table class="mb-4 border-b-2 table-auto text-base leading-loose">
-        <thead class="border-grey1 border-b-2">
-            <tr>
-                <th scope="col" class="h-12 text-left font-bold">{sectionConfig.title}</th>
-                <th scope="col" class="h-12 text-right font-normal">Count</th>
-                <th scope="col" class="h-12 text-right font-normal" style="width: 10%">%</th>
-            </tr>
-        </thead>
-        <tbody class="border-t-2">
-            {#if place}
-                {#each rows as row}
-                    {#if row.bold}
-                        <tr class="h-9 p-0 border-grey1 font-bold border-b">
-                            <th scope="row" class="h-9 p-0 text-left font-bold">{row.name}</th>
-                            <td class="p-0 td-number">{row.val.toLocaleString()}</td>
-                            <td class="p-0 td-object"/>
-                        </tr>
-                    {:else}
-                        <tr class="h-9 p-0 border-grey3 border-b">
-                            <td class="p-0 td-string">{row.name}</td>
-                            <td class="p-0 td-number">{place.data[row.var[0]].val.c2011[row.var[1]].toLocaleString()}</td>
-                            <td class="p-0 td-number">{place.data[row.var[0]].perc.c2011[row.var[1]]}</td>
-                        </tr>
-                    {/if}
-                {/each}
-            {/if}
-        </tbody>
-    </table>
 
-    <div class="wrapper padding-top--5 padding-bottom--5">
-        <div class="col-wrap" style="height: 300px">
-            <div class="col col--md-half col--lg-half padding-left--1 padding-right--1" style="height: 300px">
-                <BarChart {chartData}></BarChart>
-            </div>
-            <div class="col col--md-half col--lg-half padding-left--1 padding-right--1" style="height: 300px">
-                <Multiline {chartData}></Multiline>
-            </div>
-        </div>
-    </div>
+    <Tabs bind:selected={chartOrTable} options="{chartTableOptions}">
+        <DataTable title={sectionConfig.title} place={place} rows={rows} hidden={chartOrTable!=='Table'}></DataTable>
+        <Chart chartData={chartData} hidden={chartOrTable!=='Chart'}></Chart>
+    </Tabs>
+
     <a href="#" class="text-base">Download this dataset</a>
 </div>

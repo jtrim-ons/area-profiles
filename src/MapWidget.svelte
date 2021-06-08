@@ -122,7 +122,7 @@
 </header>
 {/if}
 <div class="relative" style="height:650px">
-<Map bind:map>
+<!-- <Map bind:map>
   {#if geometry.children}
   <MapSource
     id="children"
@@ -208,6 +208,7 @@
   </MapSource>
   {/if}
 </Map>
+-->
 </div>
 </section>
 

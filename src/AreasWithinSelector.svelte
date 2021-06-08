@@ -11,25 +11,17 @@
             
 <div>
     <ul class="flex">
-        
-            
                 <li class="m-0 p-0 mr-2 -mb-px border-grey1 border border-b-0 bg-white z-10">
                     <h3 class="text-base font-bold m-0 py-2 px-4">Electoral Wards</h3>
                 </li>
-            
-        
             
                 <li class="m-0 p-0 mr-2">
                     <a href="" class="text-grey1 hover:text-grey1 bg-grey4 hover:bg-grey3 py-2 px-4 block">Statistical areas</a>
                 </li>
             
-        
-            
                 <li class="m-0 p-0 mr-2">
                     <a href="" class="text-grey1 hover:text-grey1 bg-grey4 hover:bg-grey3 py-2 px-4 block">Census areas</a>
                 </li>
-            
-        
     </ul>
     <div class="border-t border-grey1 py-4 bg-white relative">
         
