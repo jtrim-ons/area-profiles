@@ -11,7 +11,7 @@
     let lineChartColours = ['#206095', '#27A0CC', '#871A5B', '#A8BD3A', '#F66068'];
     let chartTableOptions = ['Chart', 'Table'];
 
-    let chartOrTable;
+    let chartOrTable = 'Chart';
 
     export let section;
     export let place;
