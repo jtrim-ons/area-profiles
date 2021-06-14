@@ -16,6 +16,7 @@
     "d3-dsv": "^2.0.0",
     "layercake": "^4.1.0",
     "mapbox-gl": "1.13.1",
+    "robojournalist": "^0.0.2",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",

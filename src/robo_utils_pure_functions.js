@@ -1,34 +1,3 @@
-function formatUnicorn(str) {
-    // based on https://stackoverflow.com/a/18234317
-    str = str.toString();
-    var args = Array.prototype.slice.call(arguments, 1);
-    if (args.length) {
-        var t = typeof args[0];
-        var key;
-        args = ("string" === t || "number" === t) ?
-            Array.prototype.slice.call(args)
-            : args[0];
-
-        for (key in args) {
-            // replace {key} with the value of args[key]
-            str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
-            // replace {key?valueIfTrue:valueIfFalse} with
-            // the value of (args[key] ? valueIfTrue : valueIfFalse).
-            // If p1 or p2 is a braced variable name, get its value
-            // TODO make this tidier / recursive
-            str = str.replace(new RegExp("\\{" + key + "\\?\\{([^?:}]*)\\}:\\{([^?:}]*)\\}\\}", "gi"),
-                  (match, p1, p2) => args[key] ? args[p1.slice(1, -1)] : args[p2.slice(1, -1)]);
-            str = str.replace(new RegExp("\\{" + key + "\\?\\{([^?:}]*)\\}:([^?:}]*)\\}", "gi"),
-                  (match, p1, p2) => args[key] ? args[p1.slice(1, -1)] : p2);
-            str = str.replace(new RegExp("\\{" + key + "\\?([^?:}]*):\\{([^?:}]*)\\}\\}", "gi"),
-                  (match, p1, p2) => args[key] ? p1 : args[p2.slice(1, -1)]);
-            str = str.replace(new RegExp("\\{" + key + "\\?([^?:}]*):([^?:}]*)\\}", "gi"),
-                  (match, p1, p2) => args[key] ? p1 : p2);
-        }
-    }
-    return str;
-};
-
 function adjectify(rank, words, breaks) {
     words[2] = words[2] ? words[2] : '';
     if (rank < breaks[2]) {
@@ -86,4 +55,4 @@ function ordinal_suffix_of(i) {
     return i + "th";
 }
 
-export { formatUnicorn, adjectify, plusminus, ordinal_suffix_of };
+export { adjectify, plusminus, ordinal_suffix_of };

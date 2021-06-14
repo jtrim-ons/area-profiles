@@ -1,4 +1,5 @@
-import { formatUnicorn, adjectify, ordinal_suffix_of } from './robo_utils_pure_functions.js';
+import robojournalist from 'robojournalist';
+import { adjectify, ordinal_suffix_of } from './robo_utils_pure_functions.js';
 
 import countryifyStrings from './robo-strings/countrify-strings.csv';
 import countryify2Strings from './robo-strings/countryify2-strings.csv';
@@ -46,7 +47,7 @@ function countryify(code, pNum, place, _data, countryRank, label) {
     let rank = ranks[pNum];
     label[0] = rank.label;
 
-    return formatUnicorn(countryifyRoboStrings[rank.label], {
+    return robojournalist(countryifyRoboStrings[rank.label], {
         place_name: place["name"],
         ordinalSuffix: ordinal_suffix_of(rank.sqrt),
         value: rank.value,
@@ -68,7 +69,7 @@ function countryify2(code, param, pNum, countryRank) {
   } else {
       incDec = paramRank.abVal > 0 ? "greatest increase": "smallest decrease";
   }
-  return formatUnicorn(countryify2RoboStrings[param], {
+  return robojournalist(countryify2RoboStrings[param], {
       ordinalSuffix: ordinal_suffix_of(paramRank.sqrt),
       rankIsNegative: paramRank.value < 0,
       incDec: incDec
@@ -118,7 +119,7 @@ function regionify(code, pNum, oddNumberedPara, place, _data, _regiondata, regio
 		label[0] = ranks[pNum].label
 	}
   
-  return formatUnicorn(regionifyRoboStrings[ranks[pNum].label], {
+  return robojournalist(regionifyRoboStrings[ranks[pNum].label], {
       ordinalSuffix: ordinal_suffix_of(ranks[pNum].sqrt),
       rankIsNegative: ranks[pNum].value < 0,
       incDec: (ranks[pNum].value < 0) ? ((ranks[pNum].abVal < 0) ? "greatest decrease" : "smallest increase") : (ranks[pNum].abVal > 0) ? "greatest increase" : "smallest decrease",
@@ -196,7 +197,7 @@ function thirdSen(param, pNum, paramArray, place, breaks) {
 
   let val = place.data[paramArray[0]][paramArray[1]][changeSwitch][paramArray[3]];
 
-  return formatUnicorn(thirdSenRoboStrings[param], {
+  return robojournalist(thirdSenRoboStrings[param], {
     val: val,
     absVal: Math.abs(val),
     moreLess: adjectify(place.data[paramArray[0]]['rank'][changeSwitch][paramArray[3]], ['more', 'less'], breaks),

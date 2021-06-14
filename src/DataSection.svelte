@@ -1,5 +1,5 @@
 <script>
-    import { formatUnicorn } from './robo_utils_pure_functions.js';
+    import robojournalist from 'robojournalist';
     import DataTable from './DataTable.svelte';
     import Chart from './Chart.svelte';
     import Tabs from './Tabs.svelte';
@@ -74,7 +74,7 @@
 <h3 class="padding-top--4 padding-bottom--2" style="font-weight: bold; font-size: 150%">{sectionConfig.title}</h3>
 <div class="mb-8">
     <p>
-        {formatUnicorn(sectionConfig.roboString, chartData.roboData)}
+        {robojournalist(sectionConfig.roboString, chartData.roboData)}
     </p>
 
     <Tabs bind:selected={chartOrTable} options="{chartTableOptions}">
